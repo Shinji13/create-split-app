@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "lib": ["es2020"],
+    "target": "es2019",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": ["express/**/*.ts", "express/**/*.js"]
+}
