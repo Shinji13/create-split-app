@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
@@ -7,6 +8,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "allowJs": true,
