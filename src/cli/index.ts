@@ -80,7 +80,7 @@ export async function Cli() {
   // ! gitbash prefix the path to git for absolute posix paths e.g /projects/newSplitApp
   if (core.args[0]) {
     let cleanName = removeGitBashPrefix(core.args[0]);
-    settings.projectName = cleanName;
+    settings.userNameInput = cleanName;
   }
   // ** copying flags from the call to settings
   // ! commander returns flags without '--'
@@ -98,14 +98,15 @@ export async function Cli() {
 
   try {
     // ** prompt user for default packages additional packages like socktio has their own prompt
-    if (!core.args[0]) settings.projectName = await namePrompt();
+    if (!core.args[0]) settings.userNameInput = await namePrompt();
     settings.packages = await packagesPrompt();
     const isUsingSocket = await socketIoPrompt();
     if (isUsingSocket) settings.packages.push("socketIo");
-    if (!settings.flags.noLib) settings.flags.noLib = await libPrompt();
-    if (!settings.flags.noGit) settings.flags.noGit = await gitPrompt();
-    if (!settings.flags.noInstall)
-      settings.flags.noInstall = await installPrompt();
+    if (!settings.flags.noLib) settings.flags.noLib = !(await libPrompt());
+    if (!settings.flags.noGit) settings.flags.noGit = !(await gitPrompt());
+    if (!settings.flags.noInstall) {
+      settings.flags.noInstall = !(await installPrompt());
+    }
   } catch (error) {
     // ! inquirer throws 'isTtyError' error if the terminal is not interactive we catch it and we prompt the user if he want to use default setup with the setted flags or not
     if (error.isTtyError) {
@@ -138,7 +139,7 @@ async function libPrompt() {
     type: "confirm",
     default: true,
     message:
-      "Do you want to use split lib folder structure that provides a good way of handling shared dependencies  ?",
+      "Do you want to use split stack convention for structuring lib folder?",
   });
 
   if (isLib) logger.success("Fantastic copying the split stack lib folder");

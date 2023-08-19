@@ -6,16 +6,18 @@ import ora from "ora";
 import { PKG_ROOT } from "../consts.js";
 
 export async function createBaseProject(
-  projectName: string,
-  projectDirFullPath: string
+  projectDir: string,
+  projectDirAbsolutePath: string
 ) {
   const srcDir = path.join(PKG_ROOT, "template/base");
-  const doesItExist = fsExtra.existsSync(projectDirFullPath);
-  const spinner = ora(`creating base project in ${projectDirFullPath}`).start();
+  const doesItExist = fsExtra.existsSync(projectDirAbsolutePath);
+  const spinner = ora(
+    `creating base project in ${chalk.blue.bold(projectDirAbsolutePath)}`
+  ).start();
   if (doesItExist) {
-    if (fsExtra.readdirSync(projectDirFullPath).length == 0) {
+    if (fsExtra.readdirSync(projectDirAbsolutePath).length == 0) {
       spinner.info(
-        `${chalk.cyan.bold(projectName)} exists but empty continuing...`
+        `${chalk.blue.bold(projectDir)} exists but empty continuing...`
       );
     } else {
       spinner.stopAndPersist();
@@ -24,14 +26,14 @@ export async function createBaseProject(
         spinner.fail("aborting installation...");
         process.exit(0);
       } else if (writingOption == "Clear") {
-        spinner.info(`Very well clearing ${projectName}`);
-        fsExtra.emptyDirSync(projectDirFullPath);
+        spinner.info(`Very well clearing ${chalk.blue.bold(projectDir)}`);
+        fsExtra.emptyDirSync(projectDirAbsolutePath);
       }
     }
   }
   spinner.start();
-  fsExtra.copySync(srcDir, projectDirFullPath);
-  spinner.succeed(`now ${projectName} has base project setup `);
+  fsExtra.copySync(srcDir, projectDirAbsolutePath);
+  spinner.succeed(`now ${chalk.blue.bold(projectDir)} has base project setup `);
 }
 
 async function exitingDirPrompt() {

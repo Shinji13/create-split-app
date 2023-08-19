@@ -27,7 +27,7 @@ export const defaultPackages: stackPackages[] = [
 ];
 
 export const defaultSettings: cliSettings = {
-  projectName: defaultProjectName,
+  userNameInput: defaultProjectName,
   flags: {
     default: false,
     CI: false,

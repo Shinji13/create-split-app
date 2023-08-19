@@ -19,9 +19,33 @@ export type cliFlags = {
 };
 
 export interface cliSettings {
-  projectName: string;
+  userNameInput: string;
   packages: stackPackages[];
   flags: cliFlags;
 }
 
 export type utilityFlags = Pick<cliFlags, "noGit" | "noInstall" | "noLib">;
+
+export type availablePackage =
+  | "@sveltejs/adapter-node"
+  | "@types/express"
+  | "@lucia-auth/adapter-prisma"
+  | "@prisma/client"
+  | "@types/node"
+  | "prettier-plugin-tailwindcss"
+  | "express"
+  | "lucia"
+  | "prisma"
+  | "socket.io"
+  | "socket.io-client"
+  | "tailwindcss"
+  | "zod"
+  | "postcss"
+  | "autoprefixer";
+
+export type installer = (
+  extraSrc: string,
+  projectDirAbsolutePath: string,
+  packages?: stackPackages[],
+  noLib?: boolean
+) => void;

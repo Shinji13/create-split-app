@@ -1,0 +1,17 @@
+export const dependencyMap = {
+  "@sveltejs/adapter-node": "^1.3.1",
+  "@types/express": "^4.17.17",
+  "@lucia-auth/adapter-prisma": "^3.0.1",
+  "@prisma/client": "^5.1.1",
+  "@types/node": "^20.4.9",
+  "prettier-plugin-tailwindcss": "^0.5.3",
+  express: "^4.18.2",
+  lucia: "^2.2.0",
+  prisma: "^5.1.1",
+  "socket.io": "^4.7.2",
+  "socket.io-client": "^4.7.2",
+  tailwindcss: "^3.3.3",
+  zod: "^3.22.2",
+  postcss: "^8.4.28",
+  autoprefixer: "^10.4.15",
+};
