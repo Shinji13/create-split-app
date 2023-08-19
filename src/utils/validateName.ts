@@ -14,7 +14,7 @@ export const validateProjectName = (rawInput: string) => {
     appName = paths.slice(indexOfDelimiter).join("/");
   }
 
-  if (validationRegExp.test(appName ?? "")) {
+  if (appName == "." || validationRegExp.test(appName ?? "")) {
     return true;
   } else {
     return "App name must consist of only lowercase alphanumeric characters, '-', and '_'";

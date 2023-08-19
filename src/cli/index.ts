@@ -2,49 +2,15 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import {
   defaultPackages,
-  defaultProjectName,
-  stackPackages,
+  defaultSettings,
   stackPackagesArray,
   title,
 } from "../consts.js";
 import { getPackageVersion } from "../utils/gettingPackageVersion.js";
 import { logger } from "../utils/logger.js";
+import { removeGitBashPrefix } from "../utils/removingGitBashPrefix.js";
 import { getUserPkgManager } from "../utils/userPackageManger.js";
 import { validateProjectName } from "../utils/validateName.js";
-
-interface cliSettings {
-  projectName: string;
-  packages: stackPackages[];
-  flags: {
-    default: boolean;
-    CI: boolean;
-    noGit: boolean;
-    noInstall: boolean;
-    noLib: boolean;
-    prisma: boolean;
-    lucia: boolean;
-    zod: boolean;
-    tailwind: boolean;
-    socketIo: boolean;
-  };
-}
-
-const defaultSettings: cliSettings = {
-  projectName: defaultProjectName,
-  flags: {
-    default: false,
-    CI: false,
-    noGit: false,
-    noInstall: false,
-    noLib: false,
-    prisma: false,
-    lucia: false,
-    zod: false,
-    tailwind: false,
-    socketIo: false,
-  },
-  packages: defaultPackages,
-};
 
 export async function Cli() {
   const settings = defaultSettings;
@@ -78,31 +44,31 @@ export async function Cli() {
       "This flag determines og to install packages after project setup or not",
       false
     )
-    // --CI flag must be set otherwise we prompt the user of options
+    // ** --CI flag must be set otherwise we prompt the user of options
     .option(
       "--prisma",
       "This flag determines whether we install prisma or not",
       false
     )
-    // --CI flag must be set otherwise we prompt the user of options
+    // ** --CI flag must be set otherwise we prompt the user of options
     .option(
       "--tailwind",
       "This flag determines whether we install tailwind or not",
       false
     )
-    // --CI flag must be set otherwise we prompt the user of options
+    // ** --CI flag must be set otherwise we prompt the user of options
     .option(
       "--zod",
       "This flag determines whether we install zod or not",
       false
     )
-    // --CI flag must be set otherwise we prompt the user of options
+    // ** --CI flag must be set otherwise we prompt the user of options
     .option(
       "--socketIo",
       "This flag determines whether we install socketio or not",
       false
     )
-    // --CI flag must be set otherwise we prompt the user of options
+    // ** --CI flag must be set otherwise we prompt the user of options
     .option(
       "--lucia",
       "This flag determines whether we install lucia or not",
@@ -110,34 +76,45 @@ export async function Cli() {
     )
     .parse(process.argv);
 
-  if (core.args[0]) settings.projectName = core.args[0];
-  // copying flags from the call to cliOption
+  // ** getting the new name from commander arguments
+  // ! gitbash prefix the path to git for absolute posix paths e.g /projects/newSplitApp
+  if (core.args[0]) {
+    let cleanName = removeGitBashPrefix(core.args[0]);
+    settings.projectName = cleanName;
+  }
+  // ** copying flags from the call to settings
+  // ! commander returns flags without '--'
   settings.flags = core.opts();
 
-  //setting packges using flags if ci mode is on
+  // ** setting packges using flags if ci mode is on
   if (settings.flags.CI) {
     settings.packages = [];
     stackPackagesArray.forEach((el) => {
       if (settings.flags[`${el}`]) settings.packages.push(el);
     });
   }
+  //** in case either ci flag is set or default flag is set there is no need to go to interactive mode
   if (settings.flags.CI || settings.flags.default) return settings;
 
   try {
-    settings.packages = await packagesPrompt();
+    // ** prompt user for default packages additional packages like socktio has their own prompt
     if (!core.args[0]) settings.projectName = await namePrompt();
+    settings.packages = await packagesPrompt();
     const isUsingSocket = await socketIoPrompt();
     if (isUsingSocket) settings.packages.push("socketIo");
-    if (!settings.flags.noGit) settings.flags.noGit = await gitPrompt();
     if (!settings.flags.noLib) settings.flags.noLib = await libPrompt();
+    if (!settings.flags.noGit) settings.flags.noGit = await gitPrompt();
     if (!settings.flags.noInstall)
       settings.flags.noInstall = await installPrompt();
   } catch (error) {
+    // ! inquirer throws 'isTtyError' error if the terminal is not interactive we catch it and we prompt the user if he want to use default setup with the setted flags or not
     if (error.isTtyError) {
       logger.warn("it seems you are using non interactive terminal");
       const useDefault: boolean = await defaultProjectPrompt();
       if (!useDefault) process.exit(0);
     } else {
+      // ! ignoring all other error by printing them and exiting with code 1
+      // TODO: setting up better error handling
       logger.error(JSON.stringify(error));
       process.exit(1);
     }
@@ -146,7 +123,7 @@ export async function Cli() {
   }
 }
 
-export const packagesPrompt = async () => {
+async function packagesPrompt() {
   const { packages } = await inquirer.prompt({
     name: "packages",
     message: "Select packages you want to use",
@@ -154,9 +131,8 @@ export const packagesPrompt = async () => {
     choices: defaultPackages.map((el) => ({ checked: false, name: el })),
   });
   return packages;
-};
-
-export const libPrompt = async () => {
+}
+async function libPrompt() {
   const { isLib } = await inquirer.prompt({
     name: "isLib",
     type: "confirm",
@@ -168,8 +144,8 @@ export const libPrompt = async () => {
   if (isLib) logger.success("Fantastic copying the split stack lib folder");
   else logger.info("Okay you still can check split stack documentation.");
   return isLib;
-};
-export const gitPrompt = async () => {
+}
+async function gitPrompt() {
   const { isGit } = await inquirer.prompt({
     name: "isGit",
     type: "confirm",
@@ -179,8 +155,8 @@ export const gitPrompt = async () => {
   if (isGit) logger.success("Alright initializing a git repository");
   else logger.info("Sounds good ,you can run git init later.");
   return isGit;
-};
-export const installPrompt = async () => {
+}
+async function installPrompt() {
   const { isInstall } = await inquirer.prompt({
     name: "isInstall",
     type: "confirm",
@@ -193,8 +169,8 @@ export const installPrompt = async () => {
     logger.info(`No problem you can run ${getUserPkgManager()}`);
   } else logger.info(`No problem you can run ${getUserPkgManager()} install`);
   return isInstall;
-};
-export const namePrompt = async () => {
+}
+async function namePrompt() {
   const { projectName } = await inquirer.prompt({
     name: "projectName",
     type: "input",
@@ -204,9 +180,8 @@ export const namePrompt = async () => {
     transformer: (name: string) => name.trim(),
   });
   return projectName;
-};
-
-export const defaultProjectPrompt = async () => {
+}
+async function defaultProjectPrompt() {
   const { useDefault } = await inquirer.prompt({
     type: "confirm",
     default: true,
@@ -216,8 +191,8 @@ export const defaultProjectPrompt = async () => {
   if (useDefault) logger.success("perfect spining up default project template");
   else logger.info("exiting now");
   return useDefault;
-};
-export const socketIoPrompt = async () => {
+}
+async function socketIoPrompt() {
   const { isUsingSocket } = await inquirer.prompt({
     name: "isUsingSocket",
     message:
@@ -228,4 +203,4 @@ export const socketIoPrompt = async () => {
   if (isUsingSocket) logger.success("Very well setting up socketIo.");
   else logger.info("Sure sockets are not needed.");
   return isUsingSocket;
-};
+}
