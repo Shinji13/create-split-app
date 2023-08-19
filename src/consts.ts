@@ -20,3 +20,10 @@ export const stackPackagesArray: [
   "zod",
   "socketIo"
 ] = ["prisma", "lucia", "tailwind", "zod", "socketIo"];
+
+export const defaultPackages: stackPackages[] = [
+  "prisma",
+  "lucia",
+  "tailwind",
+  "zod",
+];

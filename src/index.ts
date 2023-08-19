@@ -5,6 +5,7 @@ async function main() {
   const projectDir = process.cwd();
   welcome();
   const cliSettings = await Cli();
+  console.log(cliSettings);
 }
 
 main();

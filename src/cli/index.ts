@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import inquirer from "inquirer";
 import {
+  defaultPackages,
   defaultProjectName,
   stackPackages,
   stackPackagesArray,
@@ -15,34 +16,34 @@ interface cliSettings {
   projectName: string;
   packages: stackPackages[];
   flags: {
-    "--default": boolean;
-    "--CI": boolean;
-    "--noGit": boolean;
-    "--noInstall": boolean;
-    "--noLib": boolean;
-    "--prisma": boolean;
-    "--lucia": boolean;
-    "--zod": boolean;
-    "--tailwind": boolean;
-    "--socketIo": boolean;
+    default: boolean;
+    CI: boolean;
+    noGit: boolean;
+    noInstall: boolean;
+    noLib: boolean;
+    prisma: boolean;
+    lucia: boolean;
+    zod: boolean;
+    tailwind: boolean;
+    socketIo: boolean;
   };
 }
 
 const defaultSettings: cliSettings = {
   projectName: defaultProjectName,
   flags: {
-    "--default": false,
-    "--CI": false,
-    "--noGit": false,
-    "--noInstall": false,
-    "--noLib": false,
-    "--prisma": false,
-    "--lucia": false,
-    "--zod": false,
-    "--tailwind": false,
-    "--socketIo": false,
+    default: false,
+    CI: false,
+    noGit: false,
+    noInstall: false,
+    noLib: false,
+    prisma: false,
+    lucia: false,
+    zod: false,
+    tailwind: false,
+    socketIo: false,
   },
-  packages: stackPackagesArray,
+  packages: defaultPackages,
 };
 
 export async function Cli() {
@@ -53,8 +54,9 @@ export async function Cli() {
     .version(getPackageVersion(), "--v", "getting the version of the package")
     .argument("[projectName]", "Project name as well as directory name")
     .option(
-      "-d,--default",
-      "This flag determines whether we use default options to spin up the project"
+      "--default",
+      "This flag determines whether we use default options to spin up the project",
+      false
     )
     .option(
       "--CI",
@@ -96,7 +98,7 @@ export async function Cli() {
     )
     // --CI flag must be set otherwise we prompt the user of options
     .option(
-      "--socketio",
+      "--socketIo",
       "This flag determines whether we install socketio or not",
       false
     )
@@ -112,35 +114,35 @@ export async function Cli() {
   // copying flags from the call to cliOption
   settings.flags = core.opts();
 
-  // setting packges using flags if ci mode is on
-  if (settings.flags["--CI"]) {
+  //setting packges using flags if ci mode is on
+  if (settings.flags.CI) {
     settings.packages = [];
     stackPackagesArray.forEach((el) => {
-      if (settings.flags[`--${el}`]) settings.packages.push(el);
+      if (settings.flags[`${el}`]) settings.packages.push(el);
     });
   }
-  if (settings.flags["--CI"] || settings.flags["--default"]) return settings;
+  if (settings.flags.CI || settings.flags.default) return settings;
 
   try {
     settings.packages = await packagesPrompt();
     if (!core.args[0]) settings.projectName = await namePrompt();
-    if (settings.flags["--noGit"])
-      settings.flags["--noGit"] = await gitPrompt();
-    if (settings.flags["--noLib"])
-      settings.flags["--noLib"] = await libPrompt();
-    if (settings.flags["--noInstall"])
-      settings.flags["--noInstall"] = await installPrompt();
-    return settings;
+    const isUsingSocket = await socketIoPrompt();
+    if (isUsingSocket) settings.packages.push("socketIo");
+    if (!settings.flags.noGit) settings.flags.noGit = await gitPrompt();
+    if (!settings.flags.noLib) settings.flags.noLib = await libPrompt();
+    if (!settings.flags.noInstall)
+      settings.flags.noInstall = await installPrompt();
   } catch (error) {
     if (error.isTtyError) {
       logger.warn("it seems you are using non interactive terminal");
       const useDefault: boolean = await defaultProjectPrompt();
-      if (useDefault) return settings;
-      else process.exit(0);
+      if (!useDefault) process.exit(0);
     } else {
       logger.error(JSON.stringify(error));
       process.exit(1);
     }
+  } finally {
+    return settings;
   }
 }
 
@@ -149,7 +151,7 @@ export const packagesPrompt = async () => {
     name: "packages",
     message: "Select packages you want to use",
     type: "checkbox",
-    choices: stackPackagesArray.map((el) => ({ checked: false, name: el })),
+    choices: defaultPackages.map((el) => ({ checked: false, name: el })),
   });
   return packages;
 };
@@ -214,4 +216,16 @@ export const defaultProjectPrompt = async () => {
   if (useDefault) logger.success("perfect spining up default project template");
   else logger.info("exiting now");
   return useDefault;
+};
+export const socketIoPrompt = async () => {
+  const { isUsingSocket } = await inquirer.prompt({
+    name: "isUsingSocket",
+    message:
+      "Do you want to add socketio setup to you project through express server?",
+    type: "confirm",
+    default: false,
+  });
+  if (isUsingSocket) logger.success("Very well setting up socketIo.");
+  else logger.info("Sure sockets are not needed.");
+  return isUsingSocket;
 };
