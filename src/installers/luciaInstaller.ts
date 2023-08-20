@@ -17,7 +17,9 @@ export function luciaInstaller(
     : path.join(projectDirAbsolutePath, "src/lib/server/config/lucia.ts");
   let appTypesSrc = path.join(extraSrc, "auth/app.d.ts");
   let appTypesDist = path.join(projectDirAbsolutePath, "src/app.d.ts");
-  let hookLuciaSrc = path.join(extraSrc, "hooks/hooks.server.ts");
+  let hookLuciaSrc = noLib
+    ? path.join(extraSrc, "hooks/hook.server.standard.ts")
+    : path.join(extraSrc, "hooks/hook.server.lib.ts");
   let hookLuciaDist = path.join(projectDirAbsolutePath, "src/hooks.server.ts");
   // ** updating package json
   // ** adding lucia config

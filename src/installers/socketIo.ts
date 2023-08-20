@@ -10,8 +10,8 @@ export function socketIoInstaller(
   packages?: stackPackages[],
   noLib?: boolean
 ) {
-  let socketsSrc = path.join(extraSrc, "sockets");
-  let socketDist = path.join(projectDirAbsolutePath, "sockets");
+  let socketsSrc = path.join(extraSrc, "express");
+  let socketDist = path.join(projectDirAbsolutePath, "express");
   let svelteConfigSrc = path.join(extraSrc, "config/svelte.configExpress.js");
   let svelteConfigDist = path.join(projectDirAbsolutePath, "svelte.config.js");
 
@@ -32,7 +32,7 @@ export function socketIoInstaller(
   const pkgJsonPath = path.join(projectDirAbsolutePath, "package.json");
   const pkgJson = fsExtra.readJSONSync(pkgJsonPath) as PackageJson;
   delete pkgJson.devDependencies["@sveltejs/adapter-auto"];
-  fsExtra.writeJSONSync(pkgJsonPath, pkgJson);
+  fsExtra.writeJSONSync(pkgJsonPath, pkgJson, { spaces: 2 });
 
   // ** copy sockets folder
   fsExtra.copySync(socketsSrc, socketDist);

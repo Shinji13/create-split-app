@@ -1,12 +1,13 @@
 import path from "path";
 import fsExtra from "fs-extra";
 import ora from "ora";
+import { PackageJson } from "type-fest";
 import { PKG_ROOT } from "../consts.js";
 import { stackPackages } from "../types.js";
 import { createBaseProject } from "./createBaseProject.js";
 import { installer } from "./installer.js";
 
-export function createProject(
+export async function createProject(
   noLib: boolean,
   packages: stackPackages[],
   projectDir: string
@@ -14,7 +15,7 @@ export function createProject(
   const workingDir = process.cwd();
   const projectDirAbsolutePath = path.resolve(workingDir, projectDir);
   // ** first step creating base project
-  createBaseProject(projectDir, projectDirAbsolutePath);
+  await createBaseProject(projectDir, projectDirAbsolutePath);
   const extraSrc = path.join(PKG_ROOT, "template/extra");
   // ** copying splits convention lib folder if flag is set
   if (!noLib) {
@@ -24,5 +25,7 @@ export function createProject(
     fsExtra.copySync(libFolderSrc, libFolderDist);
     spinner.succeed("Setting lib folder was successfull");
   }
+  // ** setting up installers
   installer(packages, projectDirAbsolutePath, noLib, extraSrc);
+  return projectDirAbsolutePath;
 }

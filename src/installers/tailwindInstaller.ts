@@ -32,7 +32,7 @@ export function tailwindInstaller(
   const pkgJsonPath = path.join(projectDirAbsolutePath, "package.json");
   const pkgJson = fsExtra.readJSONSync(pkgJsonPath) as PackageJson;
   delete pkgJson.devDependencies["prettier-plugin-svelte"];
-  fsExtra.writeJSONSync(pkgJsonPath, pkgJson);
+  fsExtra.writeJSONSync(pkgJsonPath, pkgJson, { spaces: 2 });
 
   // ** writing tailwind config
   fsExtra.copyFileSync(tailwindSrc, tailwindDist);
