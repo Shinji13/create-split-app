@@ -1,6 +1,6 @@
-export type PackageManager = "npm" | "pnpm" | "yarn";
+import { packageManager } from "../types.js";
 
-export const getUserPkgManager: () => PackageManager = () => {
+export const getUserPkgManager: () => packageManager = () => {
   const userAgent = process.env.npm_config_user_agent;
 
   if (userAgent) {

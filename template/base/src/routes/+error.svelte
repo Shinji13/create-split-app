@@ -50,19 +50,17 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 30px;
 		background-color: var(--white);
 		justify-content: center;
 		align-items: center;
+		overflow: hidden;
 	}
 	.error h1 {
-		font-size: var(--huge);
-		font-family: 'Playfair display' serif;
 		font-weight: bolder;
+		font-size: var(--h1);
 		color: transparent;
-		background: url('/yellowBg.jpg');
-		background-position: center;
-		background-size: contain;
+		background-color: var(--red);
 		background-clip: text;
 		-moz-background-clip: text;
 		-webkit-background-clip: text;
@@ -73,30 +71,28 @@
 		flex-direction: column;
 		width: 80%;
 		gap: 10px;
+		justify-content: center;
 		align-items: center;
 	}
 	.error div h3 {
 		font-size: var(--h3);
 		font-weight: bold;
-		font-family: 'Raleway' sans-serif;
 		line-height: var(--lh3);
-		color: var(--primary);
+		color: var(--black);
 	}
 	.error div p {
 		font-size: var(--body);
-		font-family: 'Open sans' sans-serif;
 		line-height: var(--lht);
 		text-align: center;
 		color: var(--black);
 		font-weight: 600;
 	}
 	.error button {
-		color: var(--primary);
-		font-family: 'Open sans', sans-serif;
-		font-size: var(--h3);
-		line-height: var(--lh3);
+		color: var(--white);
+		font-size: var(--h4);
+		line-height: var(--lh4);
 		font-weight: 700;
-		background-color: var(--secondary);
+		background-color: var(--red);
 		width: fit-content;
 		height: fit-content;
 		padding-block: 0.5rem;

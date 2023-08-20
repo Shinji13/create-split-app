@@ -3,6 +3,7 @@ import fsExtra from "fs-extra";
 import { PackageJson } from "type-fest";
 import { stackPackages } from "../types.js";
 import { addDependency } from "../utils/addDependency.js";
+import { dependencyMap } from "./dependencyMap.js";
 
 export function tailwindInstaller(
   extraSrc: string,

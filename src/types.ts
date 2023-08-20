@@ -49,3 +49,5 @@ export type installer = (
   packages?: stackPackages[],
   noLib?: boolean
 ) => void;
+
+export type packageManager = "npm" | "pnpm" | "yarn";

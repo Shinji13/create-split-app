@@ -20,11 +20,16 @@ export function prismaInstaller(
     projectDirAbsolutePath,
     "prisma/schema.prisma"
   );
+  let envDist = path.join(projectDirAbsolutePath, ".env");
+  let envData = "DATABASE_URL=file:./dev.db";
 
   // ** updating package json
   // ** adding prisma config
   addDependency(["prisma"], true, projectDirAbsolutePath);
   addDependency(["@prisma/client"], false, projectDirAbsolutePath);
+
+  // ** creating .env file with database_url variable
+  fsExtra.writeFileSync(envDist, envData);
 
   // ** creating prisma directory
   fsExtra.ensureDirSync(path.join(prismaSchemaDist, "../"));
