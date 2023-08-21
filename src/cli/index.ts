@@ -2,6 +2,7 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import {
   defaultPackages,
+  defaultProjectName,
   defaultSettings,
   stackPackagesArray,
   title,
@@ -165,7 +166,7 @@ async function installPrompt() {
     message: "Do you want to use split to install packages for you?",
   });
   const pkgManager = getUserPkgManager();
-  if (isInstall) logger.success("Well done installing packages.");
+  if (isInstall) logger.success("Very well installing packages");
   else if (pkgManager == "yarn") {
     logger.info(`No problem you can run ${getUserPkgManager()}`);
   } else logger.info(`No problem you can run ${getUserPkgManager()} install`);
@@ -176,7 +177,7 @@ async function namePrompt() {
     name: "projectName",
     type: "input",
     message: "Enter your project name that will also be your directory name",
-    default: title,
+    default: defaultProjectName,
     validate: validateProjectName,
     transformer: (name: string) => name.trim(),
   });

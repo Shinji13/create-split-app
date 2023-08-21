@@ -38,8 +38,13 @@
 <div class="error">
 	<h1>Oops !</h1>
 	<div>
-		<h3>{$page.status} - {errorMap.get($page.status).name}</h3>
-		<p>{errorMap.get($page.status).message}</p>
+		{#if errorMap.has($page.status)}
+			<h3>{$page.status} - {errorMap.get($page.status).name}</h3>
+			<p>{errorMap.get($page.status).message}</p>
+		{:else}
+			<h3>{$page.status} - unknown</h3>
+			<p>unknown error has occured</p>
+		{/if}
 	</div>
 	<button on:click={() => goto('/')}>GO TO HOMEPAGE</button>
 </div>

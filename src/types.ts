@@ -51,3 +51,10 @@ export type installer = (
 ) => void;
 
 export type packageManager = "npm" | "pnpm" | "yarn";
+
+export type gitInitStatus =
+  | "aborted"
+  | "succeed"
+  | "restricted"
+  | "failed"
+  | "ignore";

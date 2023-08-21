@@ -4,8 +4,10 @@ import fsExtra from "fs-extra";
 import { PackageJson } from "type-fest";
 import { Cli } from "./cli/index.js";
 import { createProject } from "./helpers/createProject.js";
+import { setupGit } from "./helpers/git.js";
 import { installDependencies } from "./helpers/installDepenencies.js";
 import { logNextSteps } from "./helpers/logNextSteps.js";
+import { gitInitStatus } from "./types.js";
 import { logger } from "./utils/logger.js";
 import { parsePath } from "./utils/parsePath.js";
 import { removePackagesFlags } from "./utils/removePackagesFlags.js";
@@ -33,10 +35,18 @@ async function main() {
     await installDependencies(projectDirAbsolutePath);
   }
 
-  // TODO git setup
+  // ** git setup
+  let status: gitInitStatus = "ignore";
+  if (!utilityFlags.noGit)
+    status = await setupGit(projectDirAbsolutePath, projectName);
 
   // ** what next
-  logNextSteps(utilityFlags, cliSettings.packages, projectDir);
+  logNextSteps(
+    utilityFlags.noInstall,
+    cliSettings.packages,
+    projectDir,
+    status
+  );
 }
 
 main().catch((err) => {
