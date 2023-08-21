@@ -1,5 +1,7 @@
 # Split stack cli tool
 
+![Split logo](./assets/splitLogo.png#center)
+
 The **Split Stack CLI Tool** is a command-line utility designed to streamline the process of initializing a project that embraces a split-stack architecture. This architecture combines the best of server-side rendering (SSR) and client-side rendering (CSR) for enhanced performance and flexibility. The tool helps you set up a project with the following cutting-edge technologies:
 
 - **SvelteKit**: A powerful web meta framework that efficiently handles data fetching, routing, SSR, SSG, and CSR, providing a seamless development experience.
@@ -17,6 +19,7 @@ The **Split Stack CLI Tool** is a command-line utility designed to streamline th
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
 - [Options](#options)
+- [Documentation website](#documentation-website)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -58,8 +61,7 @@ npx create-split-app
 
 - You can also use pnpm or yarn to run the package.
 - The package manager that was used to run the package will be used to install the dependencies.
-
-The CLI tool will guide you through a series of prompts to configure your project based on your preferences.
+- The CLI tool will guide you through a series of prompts to configure your project based on your preferences.
 
 ## Folder Structure
 
@@ -104,11 +106,11 @@ The structure for lib folder is optional you can default to sveltekit base struc
 
 During project initialization, the Split Stack CLI Tool will prompt you to select the technologies and features you want to include in your project. While SvelteKit and TypeScript are mandatory, you can also choose to include Prisma, Lucia, Tailwind CSS, and Socket.IO.
 
-You will also be asked if you want to initialize a Git repository and install the selected packages.
+You will also be asked if you want to use split's lib folder structure or not and whether initialize a Git repository and install the selected packages.
 
 ## Config
 
-split stack cli adds all configuration needed for inculded packages and other time consuming stuff like server hook to handle lucia session , default styles , error page ...
+Split stack cli adds all configuration needed for included packages and time consuming stuff like server hook to handle lucia session , default styles , error page ...
 
 ## Documentation website
 
