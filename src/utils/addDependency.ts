@@ -18,5 +18,5 @@ export function addDependency(
       pkgJson.dependencies[dependency] = dependencyMap[dependency];
     }
   }
-  fsExtra.writeJSONSync(pkgJsonPath, pkgJson);
+  fsExtra.writeJSONSync(pkgJsonPath, pkgJson, { spaces: 2 });
 }
