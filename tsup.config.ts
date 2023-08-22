@@ -1,5 +1,4 @@
 import { defineConfig } from "tsup";
-import tsconfig from "./tsconfig.json";
 
 export default defineConfig((options) => ({
   entry: ["src/index.ts"],
@@ -9,7 +8,8 @@ export default defineConfig((options) => ({
   name: "bundle",
   splitting: false,
   sourcemap: false,
+  target: "esnext",
   clean: true,
-  target: tsconfig.compilerOptions.target as "ES2022",
   minify: true,
+  metafile: false,
 }));

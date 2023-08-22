@@ -1,4 +1,4 @@
-import { gitInitStatus, stackPackages, utilityFlags } from "../types.js";
+import { gitInitStatus, stackPackages } from "../types.js";
 import { logger } from "../utils/logger.js";
 import { getUserPkgManager } from "../utils/userPackageManger.js";
 

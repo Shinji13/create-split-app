@@ -1,5 +1,5 @@
 import path from "path";
-import fsExtra from "fs-extra/esm";
+import fsExtra from "fs-extra";
 import { PackageJson } from "type-fest";
 import { dependencyMap } from "../installers/dependencyMap.js";
 import { availablePackage } from "../types.js";

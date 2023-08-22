@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "target": "ES2022",
+    "module": "Node16",
+    "target": "ESNext",
     "moduleResolution": "NodeNext",
-    "rootDir": "src",
+    "lib": ["ES2020"],
+    "noEmit": true,
     "outDir": "./dist",
     "esModuleInterop": true,
-    "sourceMap": false,
-    "skipLibCheck": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*"]
+  "include": ["./src/*", "tsup.config.ts"]
 }
