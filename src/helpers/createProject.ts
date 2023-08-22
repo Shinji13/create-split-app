@@ -1,7 +1,6 @@
 import path from "path";
 import fsExtra from "fs-extra";
 import ora from "ora";
-import { PackageJson } from "type-fest";
 import { PKG_ROOT } from "../consts.js";
 import { stackPackages } from "../types.js";
 import { createBaseProject } from "./createBaseProject.js";
