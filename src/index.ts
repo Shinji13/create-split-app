@@ -50,7 +50,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  logger.error("Aborting installation...");
+  logger.error("\nAborting installation...\n");
   if (err instanceof Error) {
     logger.error(err);
   } else {

@@ -7,7 +7,8 @@
   ],
   "files": [
     "dist/*",
-    "template/*"
+    "template/*",
+    "node_modules/*"
   ],
   "licenses": "MIT",
   "main": "dist/index.js",
@@ -33,9 +34,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Shinji13/create-split-app"
-  },
-  "engines": {
-    "node": ">=16.16"
   },
   "author": "",
   "license": "ISC",
