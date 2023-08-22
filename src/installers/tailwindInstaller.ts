@@ -10,16 +10,17 @@ export function tailwindInstaller(
   packages?: stackPackages[],
   noLib?: boolean
 ) {
-  let tailwindSrc = path.join(extraSrc, "config/tailwind.config.ts");
+  let tailwindSrc = path.join(extraSrc, "config/tailwind.config.cjs");
   let postcssSrc = path.join(extraSrc, "config/postcss.config.cjs");
   let tailwindPrettierSrc = path.join(
     extraSrc,
     "config/.prettierrcTailwindConfig"
   );
-  let tailwindDist = path.join(projectDirAbsolutePath, "tailwind.config.ts");
+  let tailwindDist = path.join(projectDirAbsolutePath, "tailwind.config.cjs");
   let postcssDist = path.join(projectDirAbsolutePath, "postcss.config.cjs");
   let tailwindPrettierDist = path.join(projectDirAbsolutePath, ".prettierrc");
-
+  let tailwindCssSrc = path.join(extraSrc, "pages/tailwindAppCss.css");
+  let tailwindCssDist = path.join(projectDirAbsolutePath, "src/app.css");
   // ** updating package json
   // ** adding tailwind dependencies
   addDependency(
@@ -37,9 +38,12 @@ export function tailwindInstaller(
   // ** writing tailwind config
   fsExtra.copyFileSync(tailwindSrc, tailwindDist);
 
-  // ** writing postcss schema
+  // ** writing postcss config
   fsExtra.copyFileSync(postcssSrc, postcssDist);
 
-  // ** writing prettier schema
+  // ** writing prettier config
   fsExtra.copyFileSync(tailwindPrettierSrc, tailwindPrettierDist);
+
+  // ** writing app.css
+  fsExtra.copyFileSync(tailwindCssSrc, tailwindCssDist);
 }

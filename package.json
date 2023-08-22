@@ -5,10 +5,6 @@
   "maintainers": [
     "Aymen keskas <keskasaymen8@gmail.com> (https://aymenkeskas.vercel.app/)"
   ],
-  "files": [
-    "dist/*",
-    "template/*"
-  ],
   "engines": {
     "node": ">=14.16"
   },
