@@ -48,3 +48,15 @@ export const utiltyFlagsDefault: utilityFlags = {
   noInstall: false,
   noLib: false,
 };
+
+export const placeHolderPaths: string[] = [
+  "src/lib/server",
+  "express/routes",
+  "express/controllers",
+  "src/lib/client/components",
+  "src/lib/client/stores",
+  "src/lib/client/utils",
+  "src/lib/global/schemas",
+  "src/lib/server/config",
+  "src/lib/server/utils",
+];

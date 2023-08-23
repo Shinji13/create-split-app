@@ -5,7 +5,8 @@ import { PKG_ROOT } from "../consts.js";
 import { stackPackages } from "../types.js";
 import { createBaseProject } from "./createBaseProject.js";
 import { installer } from "./installer.js";
-
+import { renameEmittedFiles } from "./npmEmittedFiles.js";
+import { removePlaceHoldersFiles } from "../helpers/removePlaceHolders.js";
 export async function createProject(
   noLib: boolean,
   packages: stackPackages[],
@@ -15,6 +16,8 @@ export async function createProject(
   const projectDirAbsolutePath = path.resolve(workingDir, projectDir);
   // ** first step creating base project
   await createBaseProject(projectDir, projectDirAbsolutePath);
+  // ** rename .gitignore and .npmrc
+  renameEmittedFiles(projectDirAbsolutePath);
   const extraSrc = path.join(PKG_ROOT, "template/extra");
   // ** copying splits convention lib folder if flag is set
   if (!noLib) {
@@ -26,5 +29,7 @@ export async function createProject(
   }
   // ** setting up installers
   installer(packages, projectDirAbsolutePath, noLib, extraSrc);
+  // ** remove placeholder files after adding lib
+  removePlaceHoldersFiles(projectDirAbsolutePath);
   return projectDirAbsolutePath;
 }

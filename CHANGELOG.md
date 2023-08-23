@@ -1,5 +1,11 @@
 # create-split-app
 
+## 2.0.0
+
+### Major Changes
+
+- adding two functions one to handle npm emitting .gitignore and .npmrc from base directory by default they have random names then this function rename them at run time to appropriate names second function however handles removing .placeholder files that been putting because of npm not publishing empty folders and lastly changing main +page.svelte to have a logo instead of a header and this is the standard version.
+
 ## 1.2.0
 
 ### Minor Changes
