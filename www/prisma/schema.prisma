@@ -18,11 +18,9 @@ model section {
 }
 
 model toc_links {
-    name        String
+    name        String  @id
     sectionName String
     order       Int     @db.SmallInt
     degree      Int     @db.SmallInt
     section     section @relation(fields: [sectionName], references: [name], onDelete: Cascade)
-
-    @@id([name, sectionName])
 }

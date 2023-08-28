@@ -5,24 +5,24 @@
 
 <a id="anchor" {href} {title}>
 	<span><slot /></span>
-	<i class="fa-solid fa-arrow-up-right-from-square" style="color: #ff3e00;"></i>
+	<i class="fa-solid fa-arrow-up-right-from-square"></i>
 </a>
 
 <style>
 	#anchor {
-		display: flex;
-		align-items: center;
-		gap: 3px;
 		cursor: pointer;
+		opacity: 1;
+	}
+	#anchor:hover {
+		opacity: 1;
+		filter: contrast(3);
 	}
 	span {
 		color: var(--primary800);
-		opacity: 0.6;
-	}
-	span:hover {
-		opacity: 1;
+		margin-left: 3px;
 	}
 	i {
+		color: var(--primary800);
 		font-size: small;
 	}
 </style>

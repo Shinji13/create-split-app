@@ -5,29 +5,18 @@
 	import ListMdHandler from './ListMdHandler.svelte';
 	import QuoteMdHandler from './QuoteMdHandler.svelte';
 	import CodeMdHandler from './CodeMdHandler.svelte';
+	import CodeSpanMdHandler from './codeSpanMdHandler.svelte';
 	export let source: string;
 </script>
 
-<div id="markdown">
-	<SvelteMarkdown
-		{source}
-		renderers={{
-			image: ImageHandler,
-			link: LinkMdHandler,
-			list: ListMdHandler,
-			blockquote: QuoteMdHandler,
-			code: CodeMdHandler
-		}}
-	/>
-</div>
-
-<style>
-	#markdown {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: fit-content;
-		padding-left: 10px;
-		gap: 8px;
-	}
-</style>
+<SvelteMarkdown
+	{source}
+	renderers={{
+		image: ImageHandler,
+		link: LinkMdHandler,
+		list: ListMdHandler,
+		blockquote: QuoteMdHandler,
+		code: CodeMdHandler,
+		codespan: CodeSpanMdHandler
+	}}
+/>

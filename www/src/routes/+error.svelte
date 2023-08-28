@@ -56,16 +56,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
-		background-color: var(--white);
+		background-color: var(--bg);
 		justify-content: center;
 		align-items: center;
 		overflow: hidden;
 	}
 	.error h1 {
 		font-weight: bolder;
-		font-size: var(--h1);
+		font-size: var(--Rh1);
 		color: transparent;
-		background-color: var(--red);
+		background-color: var(--primary800);
 		background-clip: text;
 		-moz-background-clip: text;
 		-webkit-background-clip: text;
@@ -80,24 +80,24 @@
 		align-items: center;
 	}
 	.error div h3 {
-		font-size: var(--h3);
+		font-size: var(--Rh3);
 		font-weight: bold;
 		line-height: var(--lh3);
-		color: var(--black);
+		color: var(--font);
 	}
 	.error div p {
 		font-size: var(--body);
 		line-height: var(--lht);
 		text-align: center;
-		color: var(--black);
+		color: var(--font);
 		font-weight: 600;
 	}
 	.error button {
-		color: var(--white);
-		font-size: var(--h4);
+		color: var(--font);
+		font-size: var(--Rh4);
 		line-height: var(--lh4);
 		font-weight: 700;
-		background-color: var(--red);
+		background-color: var(--primary800);
 		width: fit-content;
 		height: fit-content;
 		padding-block: 0.5rem;
