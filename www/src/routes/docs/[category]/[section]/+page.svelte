@@ -1,22 +1,30 @@
-<script>
+<script lang="ts">
 	import CoreMd from '$lib/components/coreMd.svelte';
 	import Toc from '$lib/components/toc.svelte';
 	import { page } from '$app/stores';
 	import SectionsSlider from '$lib/components/sectionsSlider.svelte';
 	import { onMount } from 'svelte';
+	import MobileToc from '$lib/components/mobileToc.svelte';
+	import NavBar from '$lib/components/navBar.svelte';
 	export let data;
-	let location = [...$page.url.pathname.split('/')];
-	location.shift();
 	let currentHeader = '';
+	let showSideBarMobile = false;
+	let location = [];
+	$: {
+		location = [...$page.url.pathname.split('/')];
+		location.shift();
+	}
 	onMount(() => {
-		const mdHeaders = document.querySelectorAll(
-			'#markdown >h1,#markdown >h2,#markdown >h3,#markdown >h4'
-		);
 		window.addEventListener('scroll', (e) => {
+			const mdHeaders = document.querySelectorAll(
+				'#markdown >h1,#markdown >h2,#markdown >h3,#markdown >h4'
+			);
 			let oldThreshold = -1;
 			mdHeaders.forEach((header) => {
-				const headerPositions = header.getBoundingClientRect();
-				let newThreshold = window.screenY - headerPositions.top;
+				const headerInfo = header.getBoundingClientRect();
+				const topSectionThreshold = window.innerWidth < 768 ? 147 : 100;
+				let newThreshold =
+					window.screenY + topSectionThreshold + headerInfo.height - headerInfo.top;
 				if ((newThreshold < oldThreshold && newThreshold > 0) || oldThreshold == -1) {
 					oldThreshold = newThreshold;
 					currentHeader = header.textContent;
@@ -27,31 +35,48 @@
 </script>
 
 <div id="docs">
-	<div class="sideBarWrapper">
-		<div id="sidebar">
-			<SectionsSlider />
+	<NavBar bind:sectionMenuAppear={showSideBarMobile} />
+	{#if showSideBarMobile}
+		<div class="mobileSideBar">
+			<SectionsSlider bind:navigate={showSideBarMobile} />
 		</div>
-	</div>
-	<div id="markdown">
-		<div class="location">
-			<i class="fa-solid fa-house"></i>
-			{#each location as param}
-				<i class="fa-solid fa-chevron-right"></i>
-				<span>{param.split('-').join(' ')}</span>
-			{/each}
+	{:else}
+		<div id="main">
+			<div class="sideWrapper">
+				<div id="sidebar">
+					<SectionsSlider />
+				</div>
+			</div>
+			<div id="markdown">
+				<div class="location">
+					<i class="fa-solid fa-house"></i>
+					{#each location as param}
+						<i class="fa-solid fa-chevron-right"></i>
+						<span>{param.split('-').join(' ')}</span>
+					{/each}
+				</div>
+				{#key data}
+					<CoreMd source={data.md} />
+				{/key}
+			</div>
+			<div id="mobileToc">
+				<MobileToc links={data.toc} {currentHeader} />
+			</div>
+			<div id="toc">
+				<Toc links={data.toc} {currentHeader} />
+			</div>
 		</div>
-		<CoreMd source={data.md} />
-	</div>
-	<div id="toc">
-		<Toc links={data.toc} {currentHeader} />
-	</div>
+	{/if}
 </div>
 
 <style>
 	#docs {
+		width: 100vw;
+	}
+	#main {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 24% 56% 18%;
+		grid-template-columns: 24% 54% 20%;
 		padding-left: 2%;
 		align-items: start;
 	}
@@ -59,7 +84,6 @@
 		display: flex;
 		flex-direction: column;
 		width: 95%;
-		height: fit-content;
 		padding-left: 10px;
 		padding-top: 10px;
 		padding-bottom: 30px;
@@ -67,7 +91,8 @@
 	}
 	.location {
 		display: flex;
-		gap: 10px;
+		width: 100%;
+		gap: 5px;
 		align-items: center;
 	}
 	.location i:not(i:first-child) {
@@ -88,7 +113,12 @@
 		font-size: var(--small);
 		border: 2px solid var(--primary400);
 	}
-	.sideBarWrapper {
+	.mobileSideBar {
+		width: 100%;
+		padding-left: 20px;
+		padding-bottom: 20px;
+	}
+	.sideWrapper {
 		position: sticky;
 		top: 100px;
 	}
@@ -97,9 +127,16 @@
 		display: flex;
 		flex-direction: column;
 		padding-left: 5px;
+		padding-bottom: 30px;
 		max-height: calc(95vh - 100px);
 		overflow-y: auto;
-		padding-bottom: 30px;
+	}
+	#mobileToc {
+		display: none;
+		position: sticky;
+		top: 100px;
+		width: 100%;
+		flex-direction: column;
 	}
 	#toc {
 		position: sticky;
@@ -109,7 +146,7 @@
 		flex-direction: column;
 	}
 	@media screen and (width < 768px) {
-		#docs {
+		#main {
 			display: flex;
 			flex-direction: column;
 			padding-left: 10px;
@@ -118,8 +155,14 @@
 			display: none;
 		}
 		#toc {
-			position: static;
-			margin-left: 0;
+			display: none;
+		}
+		#mobileToc {
+			display: flex;
+			background-color: var(--bg);
+			padding-bottom: 15px;
+			margin-left: 10px;
+			z-index: 1;
 		}
 		#markdown {
 			order: 2;

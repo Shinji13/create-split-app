@@ -1,9 +1,19 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	export let navigate = false;
+	$: currentSection = $page.data.sectionName || '';
 	const sectionsMap = new Map<string, string[]>([
 		[
 			'Create split app',
-			['Introduction', 'Why Split?', 'Installation', 'Folder Structure', 'Other Recommendations']
+			[
+				'Introduction',
+				'Why Split?',
+				'Installation',
+				'Folder Structure',
+				'FAQ',
+				'Other Recommendations'
+			]
 		],
 		[
 			'Usage',
@@ -11,7 +21,12 @@
 		],
 		['Deployment', ['Vercel', 'Netlify', 'Render', 'Docker']]
 	]);
-	$: currentSection = $page.data.sectionName || '';
+	onMount(() => {
+		const mobileCross = window.matchMedia('screen and (width >= 768px)');
+		mobileCross.addEventListener('change', () => {
+			navigate = false;
+		});
+	});
 </script>
 
 <div id="sectionsNav">
@@ -19,7 +34,13 @@
 		<h3>Create split app</h3>
 		{#each sectionsMap.get('Create split app') as section}
 			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a href={'/docs/Create-split-app' + '/' + section.split(' ').join('-')}>{section}</a>
+				<a
+					on:click={() => {
+						navigate = false;
+					}}
+					href={'/docs/create-split-app' + '/' + section.split(' ').join('-').toLowerCase()}
+					>{section}</a
+				>
 			</div>
 		{/each}
 	</div>
@@ -27,7 +48,12 @@
 		<h3>Usage</h3>
 		{#each sectionsMap.get('Usage') as section}
 			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a href={'/docs/Usage' + '/' + section.split(' ').join('-')}>{section}</a>
+				<a
+					on:click={() => {
+						navigate = false;
+					}}
+					href={'/docs/usage' + '/' + section.split(' ').join('-').toLowerCase()}>{section}</a
+				>
 			</div>
 		{/each}
 	</div>
@@ -35,7 +61,12 @@
 		<h3>Deployment</h3>
 		{#each sectionsMap.get('Deployment') as section}
 			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a href={'/docs/Deployment' + '/' + section.split(' ').join('-')}>{section}</a>
+				<a
+					on:click={() => {
+						navigate = false;
+					}}
+					href={'/docs/deployment' + '/' + section.split(' ').join('-').toLowerCase()}>{section}</a
+				>
 			</div>
 		{/each}
 	</div>
@@ -53,6 +84,7 @@
 	}
 	#current {
 		background-color: var(--primary100);
+		border-left: 3px solid var(--primary800);
 	}
 	#current a {
 		color: var(--primary800);
@@ -70,13 +102,13 @@
 		border-left: 3px solid var(--primary800);
 		filter: contrast(1.5);
 	}
+	.section:hover a {
+		text-decoration: underline;
+		color: var(--primary800);
+	}
 	a {
 		color: var(--primary400);
 		font-size: var(--h4);
 		font-weight: bold;
-	}
-	a:hover {
-		text-decoration: underline;
-		color: var(--primary800);
 	}
 </style>

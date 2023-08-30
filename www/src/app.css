@@ -20,11 +20,11 @@
 	--lhbody: 1.6;
 
 	/*default colors */
-	--primary800: #3366ff;
-	--primary400: #3366ff80;
-	--primary100: #3366ff2c;
-	--font: #140f0e;
-	--bg: #e7e8f0;
+	--primary800: #9f7cdc;
+	--primary400: #9f7cdc86;
+	--primary100: #9f7cdc23;
+	--font: #f0e8e8;
+	--bg: #152038;
 }
 
 * {
@@ -61,8 +61,8 @@ button {
 	outline: none;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bold;
-	font-size: var(--h4);
-	line-height: var(--lh4);
+	font-size: var(--body);
+	line-height: var(--lhbody);
 	color: var(--font);
 }
 

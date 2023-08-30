@@ -11,15 +11,15 @@ export const lightPrimary = new Map([
 ]);
 
 export const darkPrimary = new Map([
-	['--primary800', '#ad9ff5'],
-	['--primary400', '#ad9ff577'],
-	['--primary100', ' #ad9ff52c']
+	['--primary800', '#9f7cdc'],
+	['--primary400', '#9f7cdc86'],
+	['--primary100', ' #9f7cdc23']
 ]);
 
 export const darkFont = '#140f0e';
 
 export const whiteFont = '#f0e8e8';
 
-export const whiteBg = '#e7e8f0';
+export const whiteBg = '#e9ebf0';
 
 export const darkBg = '#152038';
