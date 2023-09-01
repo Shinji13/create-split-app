@@ -3,35 +3,15 @@
 	import Toc from '$lib/components/toc.svelte';
 	import { page } from '$app/stores';
 	import SectionsSlider from '$lib/components/sectionsSlider.svelte';
-	import { onMount } from 'svelte';
 	import MobileToc from '$lib/components/mobileToc.svelte';
 	import NavBar from '$lib/components/navBar.svelte';
 	export let data;
-	let currentHeader = '';
 	let showSideBarMobile = false;
 	let location = [];
 	$: {
 		location = [...$page.url.pathname.split('/')];
 		location.shift();
 	}
-	onMount(() => {
-		window.addEventListener('scroll', (e) => {
-			const mdHeaders = document.querySelectorAll(
-				'#markdown >h1,#markdown >h2,#markdown >h3,#markdown >h4'
-			);
-			let oldThreshold = -1;
-			mdHeaders.forEach((header) => {
-				const headerInfo = header.getBoundingClientRect();
-				const topSectionThreshold = window.innerWidth < 768 ? 147 : 100;
-				let newThreshold =
-					window.screenY + topSectionThreshold + headerInfo.height - headerInfo.top;
-				if ((newThreshold < oldThreshold && newThreshold > 0) || oldThreshold == -1) {
-					oldThreshold = newThreshold;
-					currentHeader = header.textContent;
-				}
-			});
-		});
-	});
 </script>
 
 <div id="docs">
@@ -60,10 +40,10 @@
 				{/key}
 			</div>
 			<div id="mobileToc">
-				<MobileToc links={data.toc} {currentHeader} />
+				<MobileToc links={data.toc} />
 			</div>
 			<div id="toc">
-				<Toc links={data.toc} {currentHeader} />
+				<Toc links={data.toc} />
 			</div>
 		</div>
 	{/if}

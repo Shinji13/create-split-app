@@ -11,7 +11,7 @@
 	--Rh1: clamp(2.8rem, calc(2.8rem + ((1vw - 0.48rem) * 1.3889)), 3.8rem);
 	--Rh2: clamp(2rem, calc(2rem + ((1vw - 0.48rem) * 1.3889)), 3rem);
 	--Rh3: clamp(1.5rem, calc(1.5rem + ((1vw - 0.48rem) * 0.5208)), 1.875rem);
-	--Rh4: clamp(1.125rem, calc(1.125rem + ((1vw - 0.48rem) * 0.3472)), 1.375rem);
+	--Rh4: clamp(1.2rem, calc(1.2rem + ((1vw - 0.48rem) * 0.3472)), 1.575rem);
 
 	--lh1: 1.3;
 	--lh2: 1.35;
@@ -41,11 +41,13 @@
 }
 ::-webkit-scrollbar-thumb {
 	border-radius: 30px;
+	border-radius: 30px;
 	background: var(--primary800);
 }
 
 html {
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
 
 body {

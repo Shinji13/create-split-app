@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": "./.svelte-kit/tsconfig.json",
+	"extends": "./dist/tsconfig.json",
 	"compilerOptions": {
 		"moduleResolution": "node",
 		"module": "es2020",
@@ -26,8 +26,8 @@
 		"checkJs": true,
 		"paths": {
 			"$lib/*": ["src/lib/*"],
-			"$lib": ["./src/lib"],	
-			"$/*": ["./src/*"],							 
+			"$lib": ["./src/lib"],
+			"$/*": ["./src/*"],
 			"$app": ["./node_modules/@sveltejs/kit/types"],
 			"$app/*": ["./node_modules/@sveltejs/kit/types/ambient.d.ts"]
 		}

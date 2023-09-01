@@ -27,7 +27,12 @@
 	}
 </script>
 
-<nav id="navBar" style="background-color: {isHome ? 'transparent' : 'var(--bg)'};">
+<nav
+	id="navBar"
+	style="background-color: {isHome ? 'transparent' : 'var(--bg)'}; position: {isHome
+		? 'static'
+		: 'sticky'};"
+>
 	<div class="sections">
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
@@ -88,7 +93,6 @@
 		align-items: center;
 		padding-right: 30px;
 		justify-content: space-between;
-		position: sticky;
 		top: 0;
 	}
 	.sections {
@@ -136,9 +140,9 @@
 	.toggle {
 		display: flex;
 		align-items: center;
-		gap: 20px;
+		gap: 10px;
 		background-color: var(--primary100);
-		filter: contrast(2);
+		filter: contrast(3);
 		padding-inline: 16px;
 		padding-block: 8px;
 		border-radius: 8px;

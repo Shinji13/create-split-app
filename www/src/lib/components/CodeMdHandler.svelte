@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-
 	export let lang: string;
 	export let text: string;
 	let copyStatement: 'copy' | 'copied' = 'copy';
@@ -16,7 +14,11 @@
     <code>{text}</code>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <span on:click={copyCode}>{copyStatement}</span>
+	{#if copyStatement == 'copy'}
+		<i class="fa-solid fa-copy" on:click={copyCode}></i>
+	{:else}
+		<i class="fa-solid fa-check-double"></i>
+	{/if}
 </pre>
 
 <style>
@@ -31,8 +33,9 @@
 		border: 2px solid var(--primary400);
 		border-radius: 5px;
 	}
-	span {
-		color: var(--primary800);
+	i {
+		color: var(--font);
+		font-size: 1.6rem;
 		cursor: pointer;
 		font-weight: 800;
 		align-self: flex-start;

@@ -20,6 +20,6 @@ export const darkFont = '#140f0e';
 
 export const whiteFont = '#f0e8e8';
 
-export const whiteBg = '#e9ebf0';
+export const whiteBg = '#dfe2ec';
 
 export const darkBg = '#152038';
