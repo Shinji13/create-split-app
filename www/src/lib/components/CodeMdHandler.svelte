@@ -11,7 +11,7 @@
 </script>
 
 <pre class={lang}>
-    <code>{text}</code>
+<code>{text}</code>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
 	{#if copyStatement == 'copy'}

@@ -37,11 +37,11 @@
 	width: 0.5rem;
 }
 ::-webkit-scrollbar-track {
+	border-radius: 12px;
 	background: var(--primary100);
 }
 ::-webkit-scrollbar-thumb {
-	border-radius: 30px;
-	border-radius: 30px;
+	border-radius: 12px;
 	background: var(--primary800);
 }
 
@@ -53,7 +53,6 @@ html {
 body {
 	background-color: var(--bg);
 	color: var(--font);
-	overflow-x: hidden;
 }
 
 button {
@@ -66,6 +65,15 @@ button {
 	font-size: var(--body);
 	line-height: var(--lhbody);
 	color: var(--font);
+}
+
+table {
+	border-collapse: collapse;
+	border: none; /* Remove table borders */
+}
+th,
+td {
+	border: none; /* Remove cell borders */
 }
 
 h1,

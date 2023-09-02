@@ -33,41 +33,46 @@
 	<div class="category">
 		<h3>Create split app</h3>
 		{#each sectionsMap.get('Create split app') as section}
-			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a
-					on:click={() => {
-						navigate = false;
-					}}
-					href={'/docs/create-split-app' + '/' + section.split(' ').join('-').toLowerCase()}
-					>{section}</a
-				>
-			</div>
+			<a
+				class="section"
+				id={section.toLowerCase() == currentSection ? 'current' : ''}
+				on:click={() => {
+					navigate = false;
+				}}
+				href={'/docs/create-split-app' + '/' + section.split(' ').join('-').toLowerCase()}
+			>
+				<span>{section}</span>
+			</a>
 		{/each}
 	</div>
 	<div class="category">
 		<h3>Usage</h3>
 		{#each sectionsMap.get('Usage') as section}
-			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a
-					on:click={() => {
-						navigate = false;
-					}}
-					href={'/docs/usage' + '/' + section.split(' ').join('-').toLowerCase()}>{section}</a
-				>
-			</div>
+			<a
+				class="section"
+				id={section.toLowerCase() == currentSection ? 'current' : ''}
+				on:click={() => {
+					navigate = false;
+				}}
+				href={'/docs/usage' + '/' + section.split(' ').join('-').toLowerCase()}
+			>
+				<span>{section}</span>
+			</a>
 		{/each}
 	</div>
 	<div class="category">
 		<h3>Deployment</h3>
 		{#each sectionsMap.get('Deployment') as section}
-			<div class="section" id={section.toLowerCase() == currentSection ? 'current' : ''}>
-				<a
-					on:click={() => {
-						navigate = false;
-					}}
-					href={'/docs/deployment' + '/' + section.split(' ').join('-').toLowerCase()}>{section}</a
-				>
-			</div>
+			<a
+				class="section"
+				id={section.toLowerCase() == currentSection ? 'current' : ''}
+				on:click={() => {
+					navigate = false;
+				}}
+				href={'/docs/deployment' + '/' + section.split(' ').join('-').toLowerCase()}
+			>
+				<span>{section}</span>
+			</a>
 		{/each}
 	</div>
 </div>
@@ -85,11 +90,12 @@
 	#current {
 		background-color: var(--primary100);
 		border-left: 3px solid var(--primary800);
+		filter: contrast(5);
 	}
-	#current a {
+	#current span {
 		color: var(--primary800);
 	}
-	#current:hover a {
+	#current:hover span {
 		color: var(--font);
 	}
 	.section {
@@ -98,11 +104,16 @@
 		margin-left: 5px;
 		padding-block: 5px;
 	}
+	.section span {
+		font-weight: bold;
+		font-size: var(--h4);
+	}
 	.section:hover {
 		border-left: 3px solid var(--primary800);
 		filter: contrast(1.5);
+		background-color: var(--primary100);
 	}
-	.section:hover a {
+	.section:hover span {
 		text-decoration: underline;
 		color: var(--primary800);
 	}

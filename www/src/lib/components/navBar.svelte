@@ -140,7 +140,7 @@
 	.toggle {
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		gap: 20px;
 		background-color: var(--primary100);
 		filter: contrast(3);
 		padding-inline: 16px;

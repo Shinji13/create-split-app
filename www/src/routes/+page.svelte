@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import NavBar from '$lib/components/navBar.svelte';
+	import PresentationCode from '$lib/components/presentationCode.svelte';
 	import SectionsSlider from '$lib/components/sectionsSlider.svelte';
 	import Tech from '$lib/components/tech.svelte';
+	import { respresentationCode } from '$lib/consts';
+	import { theme } from '$lib/stores';
 	let showSideBarMobile = false;
 	let stackColors = ['#ff5100', '#1C1E24', '#2f74c0ff', '#38B2AC', '#5A67D8'];
 	let copyStatement: 'copy' | 'copied' = 'copy';
@@ -44,6 +47,7 @@
 			href: 'https://lucia-auth.com/'
 		}
 	];
+	let currentSlide = 0;
 	async function copyCode(text: string) {
 		navigator.clipboard.writeText(text);
 		copyStatement = 'copied';
@@ -72,7 +76,7 @@
 					><button>Github</button></a
 				>
 			</div>
-			<pre class="installAction">
+			<pre class="installAction" style="background-color: {$theme ? '#ffffff36' : '#00000023'};">
 				<h4>npm i create-split-app@latest</h4>
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -102,7 +106,29 @@
 					</p>
 				</div>
 			</div>
-			<div class="cli"></div>
+			<div class="cli">
+				<div class="sliderControl">
+					{#each respresentationCode as slide, i}
+						<button
+							on:click={() => {
+								currentSlide = i;
+							}}
+							style="background-color: {currentSlide != i
+								? 'transparent'
+								: $theme
+								? '#ffffff'
+								: '#011627ff'}; color:{currentSlide == i ? 'var(--bg)' : '#78808bff'};"
+							>{slide.fileName}</button
+						>
+					{/each}
+				</div>
+				<div class="slide">
+					<PresentationCode
+						code={respresentationCode[currentSlide].code}
+						language={respresentationCode[currentSlide].language}
+					/>
+				</div>
+			</div>
 		</div>
 		<div id="tech">
 			<h3>Split provides a full stack ecosystem</h3>
@@ -206,7 +232,6 @@
 		border-radius: 8px;
 		align-items: center;
 		gap: 16px;
-		background-color: rgba(255, 255, 255, 0.212);
 	}
 	.installAction i {
 		color: var(--font);
@@ -217,17 +242,34 @@
 	#about {
 		width: 100%;
 		display: grid;
-		grid-template-columns: 47% 47%;
+		grid-template-columns: 45% 49%;
 		grid-auto-rows: 1fr;
 		padding-inline: 2%;
 		gap: 2%;
 	}
 	#about .cli {
 		display: flex;
-		background-color: aqua;
 		width: 100%;
-		height: 100%;
-		align-self: center;
+		flex-direction: column;
+	}
+	#about .cli .sliderControl {
+		display: flex;
+		align-items: center;
+		margin-left: 20px;
+	}
+	#about .cli .sliderControl button {
+		color: var(--bg);
+		font-weight: 400;
+		cursor: pointer;
+		border-bottom: 0;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		padding-inline: 8px;
+		padding-block: 6px;
+	}
+	#about .cli .slide {
+		width: 100%;
+		height: 50vh;
 	}
 	#about .description {
 		width: 100%;
@@ -293,7 +335,9 @@
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
-			padding-left: 30px;
+		}
+		#about .cli .slide {
+			width: 95%;
 		}
 		#tech .techGrid {
 			display: flex;

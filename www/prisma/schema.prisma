@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model section {
@@ -18,9 +19,11 @@ model section {
 }
 
 model toc_links {
-    name        String  @id
+    name        String
     sectionName String
     order       Int     @db.SmallInt
     degree      Int     @db.SmallInt
     section     section @relation(fields: [sectionName], references: [name], onDelete: Cascade)
+
+    @@id([name, sectionName])
 }
