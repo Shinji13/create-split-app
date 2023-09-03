@@ -148,6 +148,8 @@
 		flex-direction: column;
 		width: 100vw;
 		min-height: 100vh;
+		position: relative;
+		overflow-x: hidden;
 	}
 	.mobileSideBar {
 		width: 100%;
@@ -251,6 +253,7 @@
 		display: flex;
 		width: 100%;
 		flex-direction: column;
+		align-items: center;
 	}
 	#about .cli .sliderControl {
 		display: flex;
@@ -302,6 +305,7 @@
 		margin: 0;
 		font-size: var(--Rh3);
 		color: var(--primary400);
+		text-align: center;
 	}
 	#tech h1 {
 		font-size: var(--Rh2);

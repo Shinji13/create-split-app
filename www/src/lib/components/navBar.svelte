@@ -93,6 +93,7 @@
 		align-items: center;
 		padding-right: 30px;
 		justify-content: space-between;
+		z-index: 3;
 		top: 0;
 	}
 	.sections {

@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 	export let links: tocLink[];
 	let currentHeader = '';
-	const orderedLinks = links.sort((aLink, bLink) => aLink.order - bLink.order);
-	const degreeClasses = ['dg1', 'dg2', 'dg3', 'dg4'];
 	let appear = false;
+	const degreeClasses = ['dg1', 'dg2', 'dg3', 'dg4'];
+	$: orderedLinks = links.sort((aLink, bLink) => aLink.order - bLink.order);
 	onMount(() => {
 		window.addEventListener('scroll', (e) => {
 			const mdHeaders = document.querySelectorAll(
