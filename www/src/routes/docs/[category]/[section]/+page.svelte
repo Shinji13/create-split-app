@@ -66,7 +66,7 @@
 		width: 95%;
 		padding-left: 10px;
 		padding-top: 10px;
-		padding-bottom: 30px;
+		padding-bottom: 80px;
 		gap: 8px;
 	}
 	.location {
