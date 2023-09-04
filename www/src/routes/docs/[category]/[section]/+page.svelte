@@ -5,11 +5,23 @@
 	import SectionsSlider from '$lib/components/sectionsSlider.svelte';
 	import MobileToc from '$lib/components/mobileToc.svelte';
 	import NavBar from '$lib/components/navBar.svelte';
+	import { findSectionNeigbors } from '$lib/utils.js';
 	export let data;
 	let showSideBarMobile = false;
+	let neigbors = {
+		previous: {
+			section: '',
+			category: ''
+		},
+		next: {
+			section: '',
+			category: ''
+		}
+	};
 	let location = [];
 	$: {
 		location = [...$page.url.pathname.split('/')];
+		neigbors = findSectionNeigbors(location.at(-1));
 		location.shift();
 	}
 </script>
@@ -32,12 +44,36 @@
 					<i class="fa-solid fa-house"></i>
 					{#each location as param}
 						<i class="fa-solid fa-chevron-right"></i>
-						<span>{param.split('-').join(' ')}</span>
+						<span>{param.replace(/ /g, '-')}</span>
 					{/each}
 				</div>
 				{#key data}
 					<CoreMd source={data.md} />
 				{/key}
+				<div class="quickNav">
+					{#if neigbors.previous.section != ''}
+						<a
+							class="previous"
+							href="/docs/{neigbors.previous.category
+								.toLowerCase()
+								.replace(/ /g, '-')}/{neigbors.previous.section.toLowerCase().replace(/ /g, '-')}"
+						>
+							<i class="fa-solid fa-chevron-left"></i>
+							<span>{neigbors.previous.section}</span>
+						</a>
+					{/if}
+					{#if neigbors.next.section != ''}
+						<a
+							class="next"
+							href="/docs/{neigbors.next.category
+								.toLowerCase()
+								.replace(/ /g, '-')}/{neigbors.next.section.toLowerCase().replace(/ /g, '-')}"
+						>
+							<span>{neigbors.next.section}</span>
+							<i class="fa-solid fa-chevron-right"></i>
+						</a>
+					{/if}
+				</div>
 			</div>
 			<div id="mobileToc">
 				<MobileToc links={data.toc} />
@@ -66,8 +102,37 @@
 		width: 95%;
 		padding-left: 10px;
 		padding-top: 10px;
-		padding-bottom: 80px;
 		gap: 8px;
+	}
+	.quickNav {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		width: 100%;
+		border-bottom: 2px solid var(--primary400);
+		padding-inline: 1%;
+		margin-top: 80px;
+		margin-bottom: 240px;
+		padding-bottom: 30px;
+		align-items: center;
+	}
+	.next,
+	.previous {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--primary800);
+	}
+	.next {
+		justify-content: flex-end;
+	}
+	.previous {
+		justify-content: flex-start;
+	}
+	.next span,
+	.previous span {
+		font-size: var(--h4);
+		font-weight: 500;
 	}
 	.location {
 		display: flex;

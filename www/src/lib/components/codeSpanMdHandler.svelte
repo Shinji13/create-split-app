@@ -6,10 +6,10 @@
 
 <style>
 	code {
-		padding-inline: 10px;
-		padding-block: 3px;
+		padding-inline: 4px;
+		padding-block: 2px;
 		border: 2px solid var(--primary400);
 		background-color: var(--primary100);
-		border-radius: 5px;
+		border-radius: 4px;
 	}
 </style>

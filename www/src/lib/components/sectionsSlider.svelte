@@ -1,26 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { sectionsMap } from '$lib/consts';
 	export let navigate = false;
 	$: currentSection = $page.data.sectionName || '';
-	const sectionsMap = new Map<string, string[]>([
-		[
-			'Create split app',
-			[
-				'Introduction',
-				'Why Split?',
-				'Installation',
-				'Folder Structure',
-				'FAQ',
-				'Other Recommendations'
-			]
-		],
-		[
-			'Usage',
-			['First steps', 'Svelte kit', 'Typescript', 'Prisma', 'Lucia', 'Tailwind', 'Zod', 'Sockets']
-		],
-		['Deployment', ['Vercel', 'Netlify', 'Render', 'Docker']]
-	]);
+
 	onMount(() => {
 		const mobileCross = window.matchMedia('screen and (width >= 768px)');
 		mobileCross.addEventListener('change', () => {
@@ -35,11 +19,13 @@
 		{#each sectionsMap.get('Create split app') as section}
 			<a
 				class="section"
-				id={section.toLowerCase() == currentSection ? 'current' : ''}
+				id={section.toLowerCase().replace(/ /g, '-').replace(/[?]/g, '') == currentSection
+					? 'current'
+					: ''}
 				on:click={() => {
 					navigate = false;
 				}}
-				href={'/docs/create-split-app' + '/' + section.split(' ').join('-').toLowerCase()}
+				href={'/docs/create-split-app' + '/' + section.replace(/ /g, '-').toLowerCase()}
 			>
 				<span>{section}</span>
 			</a>
@@ -54,7 +40,7 @@
 				on:click={() => {
 					navigate = false;
 				}}
-				href={'/docs/usage' + '/' + section.split(' ').join('-').toLowerCase()}
+				href={'/docs/usage' + '/' + section.replace(/ /g, '-').toLowerCase()}
 			>
 				<span>{section}</span>
 			</a>
@@ -69,7 +55,7 @@
 				on:click={() => {
 					navigate = false;
 				}}
-				href={'/docs/deployment' + '/' + section.split(' ').join('-').toLowerCase()}
+				href={'/docs/deployment' + '/' + section.replace(/ /g, '-').toLowerCase()}
 			>
 				<span>{section}</span>
 			</a>

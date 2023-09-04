@@ -50,7 +50,10 @@
 			class="link"
 			id={link.name == currentHeader ? 'active' : ''}
 			on:click={() => {
-				let headerId = link.name.toLowerCase().split(' ').join('-');
+				let headerId = link.name
+					.toLowerCase()
+					.replace(/ /g, '-')
+					.replace(/[@#:\$%\^&,\.\/*?]/g, '');
 				scrollToHeader(headerId);
 			}}
 		>

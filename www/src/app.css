@@ -125,3 +125,7 @@ a {
 	text-decoration: none;
 	font-weight: bold;
 }
+
+li {
+	margin-block: 12px;
+}

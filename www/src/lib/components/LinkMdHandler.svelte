@@ -3,7 +3,7 @@
 	export let title = undefined;
 </script>
 
-<a id="anchor" {href} {title}>
+<a id="anchor" {href} {title} target="_blank">
 	<span><slot /></span>
 	<i class="fa-solid fa-arrow-up-right-from-square"></i>
 </a>
@@ -12,6 +12,7 @@
 	#anchor {
 		cursor: pointer;
 		opacity: 1;
+		margin-inline: 2px;
 	}
 	#anchor:hover {
 		opacity: 1;
@@ -19,7 +20,6 @@
 	}
 	span {
 		color: var(--primary800);
-		margin-left: 3px;
 	}
 	i {
 		color: var(--primary800);

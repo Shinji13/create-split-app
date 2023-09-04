@@ -128,3 +128,22 @@ export type Auth = typeof auth;
 `
 	}
 ];
+
+export const sectionsMap = new Map<string, string[]>([
+	[
+		'Create split app',
+		[
+			'Introduction',
+			'Why Split?',
+			'Installation',
+			'Folder Structure',
+			'FAQ',
+			'Other Recommendations'
+		]
+	],
+	[
+		'Usage',
+		['First steps', 'Svelte kit', 'Typescript', 'Prisma', 'Lucia', 'Tailwind', 'Zod', 'Sockets']
+	],
+	['Deployment', ['Vercel', 'Netlify', 'Render', 'Docker']]
+]);
