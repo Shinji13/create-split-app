@@ -8,6 +8,9 @@
   "engines": {
     "node": ">=14.16"
   },
+  "settings": {
+    "autoInstallPeers": false
+  },
   "files": [
     "dist/*",
     "template/*",
