@@ -47,7 +47,7 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<a
 			class="link"
-			id={link.name == currentHeader ? 'active' : ''}
+			id={link.name.toLowerCase() == currentHeader.toLowerCase() ? 'active' : ''}
 			on:click={() => {
 				let headerId = link.name
 					.toLowerCase()

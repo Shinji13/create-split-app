@@ -1,10 +1,13 @@
 name: CP
+
 on:
   push:
     branches:
       - master
 concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 permissions: {} #reset
+
 jobs:
   release:
     # IMPORTANT: prevent this action from running on forks
