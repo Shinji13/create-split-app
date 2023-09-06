@@ -19,13 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-      - run: pnpm install
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
       - name: Publish to npm
         id: changesets
         uses: changesets/action@v1
