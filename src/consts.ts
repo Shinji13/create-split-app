@@ -51,8 +51,6 @@ export const utiltyFlagsDefault: utilityFlags = {
 
 export const placeHolderPaths: string[] = [
   "src/lib/server",
-  "express/routes",
-  "express/controllers",
   "src/lib/client/components",
   "src/lib/client/stores",
   "src/lib/client/utils",

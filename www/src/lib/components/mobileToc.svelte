@@ -15,8 +15,7 @@
 			mdHeaders.forEach((header) => {
 				const headerInfo = header.getBoundingClientRect();
 				const topSectionThreshold = 163;
-				let newThreshold =
-					window.screenY + topSectionThreshold + headerInfo.height - headerInfo.top;
+				let newThreshold = Math.abs(topSectionThreshold - headerInfo.top);
 				if ((newThreshold < oldThreshold && newThreshold > 0) || oldThreshold == -1) {
 					oldThreshold = newThreshold;
 					currentHeader = header.textContent;
@@ -53,7 +52,7 @@
 				let headerId = link.name
 					.toLowerCase()
 					.replace(/ /g, '-')
-					.replace(/[@#:\$%\^&,\.\/*?]/g, '');
+					.replace(/[@#:\$%\^&,\.\/*_?]/g, '');
 				scrollToHeader(headerId);
 			}}
 		>

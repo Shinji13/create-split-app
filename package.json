@@ -24,7 +24,8 @@
     "dev": "ts-node --esm src/index.ts",
     "start": "node dist/index.js",
     "build": "tsup",
-    "lint": "tsc"
+    "lint": "tsc",
+    "release": "changeset publish"
   },
   "keywords": [
     "create-split-app",

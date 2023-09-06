@@ -118,6 +118,7 @@ code {
 	font-size: var(--body);
 	line-height: var(--lhbody);
 	font-weight: 400;
+	white-space: normal;
 }
 
 a {

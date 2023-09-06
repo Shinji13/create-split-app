@@ -110,8 +110,8 @@
 		width: 100%;
 		border-bottom: 2px solid var(--primary400);
 		padding-inline: 1%;
-		margin-top: 80px;
-		margin-bottom: 240px;
+		margin-top: 5rem;
+		margin-bottom: 14rem;
 		padding-bottom: 30px;
 		align-items: center;
 	}
@@ -194,7 +194,7 @@
 		#main {
 			display: flex;
 			flex-direction: column;
-			padding-left: 10px;
+			padding-inline: 10px;
 		}
 		#sidebar {
 			display: none;
@@ -207,10 +207,11 @@
 			background-color: var(--bg);
 			padding-bottom: 15px;
 			margin-left: 10px;
-			z-index: 1;
+			z-index: 4;
 		}
 		#markdown {
 			order: 2;
+			width: 100%;
 		}
 	}
 </style>

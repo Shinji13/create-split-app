@@ -6,6 +6,7 @@
 	import QuoteMdHandler from './QuoteMdHandler.svelte';
 	import CodeMdHandler from './CodeMdHandler.svelte';
 	import CodeSpanMdHandler from './codeSpanMdHandler.svelte';
+	import HeaderMdHandler from './headerMdHandler.svelte';
 	export let source: string;
 </script>
 
@@ -17,6 +18,7 @@
 		list: ListMdHandler,
 		blockquote: QuoteMdHandler,
 		code: CodeMdHandler,
-		codespan: CodeSpanMdHandler
+		codespan: CodeSpanMdHandler,
+		heading: HeaderMdHandler
 	}}
 />

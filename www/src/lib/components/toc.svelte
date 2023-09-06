@@ -14,8 +14,7 @@
 			mdHeaders.forEach((header) => {
 				const headerInfo = header.getBoundingClientRect();
 				const topSectionThreshold = 100;
-				let newThreshold =
-					window.screenY + topSectionThreshold + headerInfo.height - headerInfo.top;
+				let newThreshold = Math.abs(topSectionThreshold - headerInfo.top);
 				if ((newThreshold < oldThreshold && newThreshold > 0) || oldThreshold == -1) {
 					oldThreshold = newThreshold;
 					currentHeader = header.textContent;
@@ -40,12 +39,12 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<a
 			class="link"
-			id={link.name == currentHeader ? 'active' : ''}
+			id={link.name.toLowerCase() == currentHeader.toLowerCase() ? 'active' : ''}
 			on:click={() => {
 				let headerId = link.name
 					.toLowerCase()
 					.replace(/ /g, '-')
-					.replace(/[@#:\$%\^&,\.\/*?]/g, '');
+					.replace(/[@#:\$%\^&,\.\/*_?]/g, '');
 				scrollToHeader(headerId);
 			}}
 		>

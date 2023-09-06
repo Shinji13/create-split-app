@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Highlight, { LineNumbers } from 'svelte-highlight';
 	import { typescript, css } from 'svelte-highlight/languages';
-	import { nightOwl, intellijLight } from 'svelte-highlight/styles';
+	import { githubDark, oneLight } from 'svelte-highlight/styles';
 	import { linear } from 'svelte/easing';
 	import { theme } from '$lib/stores';
 	import { slide } from 'svelte/transition';
@@ -11,9 +11,9 @@
 
 <svelte:head>
 	{#if $theme}
-		{@html intellijLight}
+		{@html oneLight}
 	{:else}
-		{@html nightOwl}
+		{@html githubDark}
 	{/if}
 </svelte:head>
 

@@ -1,34 +1,33 @@
-name: CD
-
+name: CP
 on:
   push:
     branches:
-      - "master"
-
+      - master
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-
+permissions: {} #reset
 jobs:
-  build:
+  release:
+    # IMPORTANT: prevent this action from running on forks
+    if: github.repository == 'Shinji13/create-split-app'
+    permissions:
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-          run_install: false
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install
-      - name: create changeset version
+      - run: pnpm install
+      - name: Publish to npm
+        id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

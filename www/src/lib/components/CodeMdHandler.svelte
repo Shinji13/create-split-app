@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { LineNumbers, HighlightAuto } from 'svelte-highlight';
+	import { githubDark, oneLight } from 'svelte-highlight/styles';
+
+	import { theme } from '$lib/stores';
 	export let lang: string;
 	export let text: string;
 	let copyStatement: 'copy' | 'copied' = 'copy';
@@ -10,34 +14,48 @@
 	}
 </script>
 
-<pre class={lang}>
-<code>{text}</code>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
+<svelte:head>
+	{#if $theme}
+		{@html oneLight}
+	{:else}
+		{@html githubDark}
+	{/if}
+</svelte:head>
+
+<div id="codeMdBlock" class={lang}>
+	<HighlightAuto code={text} let:highlighted>
+		<LineNumbers {highlighted} hideBorder />
+	</HighlightAuto>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	{#if copyStatement == 'copy'}
 		<i class="fa-solid fa-copy" on:click={copyCode}></i>
 	{:else}
 		<i class="fa-solid fa-check-double"></i>
 	{/if}
-</pre>
+</div>
 
 <style>
-	pre {
+	#codeMdBlock {
+		width: 98%;
+		border-radius: 24px;
+		position: relative;
+	}
+	:global(#codeMdBlock > div:first-child) {
 		width: 100%;
-		display: flex;
-		padding-inline: 10px;
-		padding-block: 5px;
-		align-items: center;
-		justify-content: space-between;
-		background-color: var(--primary100);
-		border: 2px solid var(--primary400);
 		border-radius: 5px;
 	}
+	:global(#codeMdBlock > div:first-child code) {
+		word-spacing: 1rem;
+	}
 	i {
-		color: var(--font);
+		position: absolute;
+		top: 10px;
+		right: 3%;
+		color: var(--bg);
 		font-size: 1.6rem;
 		cursor: pointer;
 		font-weight: 800;
-		align-self: flex-start;
+		z-index: 4;
 	}
 </style>
