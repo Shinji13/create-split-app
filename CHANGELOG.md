@@ -1,5 +1,11 @@
 # create-split-app
 
+## 2.1.0
+
+### Minor Changes
+
+- 3e1a74e: updating project template by removing controllers and routes folders from express-socketIo setup because we mainly use express only when intergating sockets.
+
 ## 2.0.0
 
 ### Major Changes
