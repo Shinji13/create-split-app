@@ -117,7 +117,7 @@
 								? 'transparent'
 								: $theme
 								? '#ffffff'
-								: '#011627ff'}; color:{currentSlide == i ? 'var(--bg)' : '#78808bff'};"
+								: '#0d1117ff'}; color:{currentSlide == i ? 'var(--bg)' : '#78808bff'};"
 							>{slide.fileName}</button
 						>
 					{/each}

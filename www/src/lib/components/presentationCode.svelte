@@ -37,7 +37,6 @@
 		font-size: var(--small);
 		border-bottom-left-radius: 12px;
 		overflow-y: scroll;
-		overflow-x: scroll;
 	}
 	::-webkit-scrollbar {
 		width: 0.5rem;
