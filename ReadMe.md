@@ -88,9 +88,7 @@ project-root/
 |           |-- schemas/
 |               |-- zod/
 |-- express/
-|   |-- routes/
-|   |-- controllers/
-|   |-- utils/
+|   |-- tsconfig.json    
 |   |-- index.ts
 |-- prisma/
 |   |-- schema.prisma
@@ -114,7 +112,7 @@ Split stack cli adds all configuration needed for included packages and time con
 
 ## Documentation website
 
-In a few days, a website will be available that contains the full documentation well organized.
+A website is avaiable at [create-split-app](https://create-split-app.vercel.app/) , but some sections are not complete.
 
 ## Contributing
 
