@@ -1,7 +1,6 @@
 export type tocLink = {
 	name: string;
 	degree: number;
-	order: number;
 };
 
 export const lightPrimary = new Map([

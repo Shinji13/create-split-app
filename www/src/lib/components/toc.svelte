@@ -4,7 +4,6 @@
 	export let links: tocLink[];
 	let currentHeader = '';
 	const degreeClasses = ['dg1', 'dg2', 'dg3', 'dg4'];
-	$: orderedLinks = links.sort((aLink, bLink) => aLink.order - bLink.order);
 	onMount(() => {
 		window.addEventListener('scroll', (e) => {
 			const mdHeaders = document.querySelectorAll(
@@ -34,7 +33,7 @@
 
 <h4>On this page</h4>
 <div class="links">
-	{#each orderedLinks as link}
+	{#each links as link}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<a

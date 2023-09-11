@@ -1,13 +1,10 @@
 lockfileVersion: '6.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@prisma/client':
-    specifier: ^5.2.0
-    version: 5.2.0(prisma@5.2.0)
   '@sveltejs/adapter-auto':
     specifier: ^2.1.0
     version: 2.1.0(@sveltejs/kit@1.24.0)
@@ -43,9 +40,6 @@ devDependencies:
   prettier-plugin-svelte:
     specifier: ^3.0.3
     version: 3.0.3(prettier@3.0.3)(svelte@4.2.0)
-  prisma:
-    specifier: ^5.2.0
-    version: 5.2.0
   svelte:
     specifier: ^4.0.5
     version: 4.2.0
@@ -381,28 +375,6 @@ packages:
 
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
-
-  /@prisma/client@5.2.0(prisma@5.2.0):
-    resolution: {integrity: sha512-AiTjJwR4J5Rh6Z/9ZKrBBLel3/5DzUNntMohOy7yObVnVoTNVFi2kvpLZlFuKO50d7yDspOtW6XBpiAd0BVXbQ==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f
-      prisma: 5.2.0
-    dev: false
-
-  /@prisma/engines-version@5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f:
-    resolution: {integrity: sha512-jsnKT5JIDIE01lAeCj2ghY9IwxkedhKNvxQeoyLs6dr4ZXynetD0vTy7u6wMJt8vVPv8I5DPy/I4CFaoXAgbtg==}
-    dev: false
-
-  /@prisma/engines@5.2.0:
-    resolution: {integrity: sha512-dT7FOLUCdZmq+AunLqB1Iz+ZH/IIS1Fz2THmKZQ6aFONrQD/BQ5ecJ7g2wGS2OgyUFf4OaLam6/bxmgdOBDqig==}
-    requiresBuild: true
 
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -1823,14 +1795,6 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
-
-  /prisma@5.2.0:
-    resolution: {integrity: sha512-FfFlpjVCkZwrqxDnP4smlNYSH1so+CbfjgdpioFzGGqlQAEm6VHAYSzV7jJgC3ebtY9dNOhDMS2+4/1DDSM7bQ==}
-    engines: {node: '>=16.13'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@prisma/engines': 5.2.0
 
   /pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}

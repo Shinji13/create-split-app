@@ -4,21 +4,21 @@ To scaffold an app using Split Stack CLI, follow these steps. You can use npm, y
 
 ### npm
 
-```
+```Bash
 npm i create-split-app@latest
 npx create-split-app
 ```
 
 ### yarn
 
-```
+```Bash
 yarn add create-split-app@latest
 yarn create create-split-app
 ```
 
 ### pnpm
 
-```
+```Bash
 pnpm add create-split-app@latest
 pnpm dlx create-split-app
 ```
@@ -65,6 +65,6 @@ Split cli default flag will setup a project with default options which are:
 
 Here's an example of scaffolding a Split Stack app with Prisma, Zod and lucia.
 
-```
+```Bash
 pnpm dlx create-split-app@latest --CI --prisma --zod --lucia
 ```

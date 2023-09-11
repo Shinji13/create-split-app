@@ -1,39 +1,36 @@
 import { error, type Load } from '@sveltejs/kit';
-import prismaClient from '$lib/server/prisma';
-import { handleAsync } from '$lib/utils';
+import fs from 'fs';
+import path from 'path';
 
 export const load: Load = async ({ params }) => {
-	const sectionName = params.section.toLowerCase();
+	const section = params.section.toLowerCase();
 	const category = params.category.toLowerCase();
-	let [data, err] = await handleAsync(
-		Promise.all([
-			prismaClient.section.findUnique({
-				where: {
-					name: sectionName,
-					category: category
-				},
-				select: {
-					name: true,
-					content: true
-				}
-			}),
-			prismaClient.toc_links.findMany({
-				where: {
-					sectionName: sectionName
-				},
-				select: {
-					sectionName: false,
-					degree: true,
-					name: true,
-					order: true
-				}
-			})
-		])
-	);
-	if (err) throw error(404, 'section not found');
-	return {
-		md: data[0].content,
-		toc: data[1] || [],
-		sectionName: data[0].name
-	};
+	try {
+		const md = fs.readFileSync(path.join('static', 'docs', category, section + '.md'));
+		const toc = generateTableOfContents(md.toString());
+		return {
+			md: md.toString(),
+			toc,
+			sectionName: section
+		};
+	} catch (err) {
+		throw error(404, 'page not found');
+	}
 };
+
+function generateTableOfContents(mdText: string) {
+	const lines = mdText.split('\n');
+	const toc = [];
+	const headerRegex = /^(#+)\s+(.*)/;
+
+	for (const line of lines) {
+		const match = line.match(headerRegex);
+		if (match) {
+			const degree = match[1].length;
+			const name = match[2].trim().replace(/[\*_]/g, '');
+			toc.push({ degree, name });
+		}
+	}
+
+	return toc;
+}
