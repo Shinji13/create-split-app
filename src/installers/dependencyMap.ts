@@ -6,7 +6,7 @@ export const dependencyMap = {
   "@types/node": "^20.4.9",
   "prettier-plugin-tailwindcss": "^0.5.3",
   express: "^4.18.2",
-  lucia: "^2.2.0",
+  lucia: "^2.7.1",
   prisma: "^5.1.1",
   "socket.io": "^4.7.2",
   "socket.io-client": "^4.7.2",

@@ -12,7 +12,7 @@ declare global {
   }
   // <reference types="lucia" />
   namespace Lucia {
-    type Auth = import("./lib/Server/lucia").Auth;
+    type Auth = import("./lib/server/lucia").Auth;
     // eslint-disable-next-line @typescript-eslint/ban-types
     type DatabaseUserAttributes = {
       // any user property you want lucia to expose mention it here
