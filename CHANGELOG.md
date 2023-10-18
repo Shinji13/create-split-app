@@ -1,5 +1,11 @@
 # create-split-app
 
+## 2.2.0
+
+### Minor Changes
+
+- b4ca52f: adjusting to new lucia changes by removing authrequest csrf check,it is integrated with validate now
+
 ## 2.1.0
 
 ### Minor Changes
