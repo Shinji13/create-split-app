@@ -1,5 +1,11 @@
 # create-split-app
 
+## 2.2.1
+
+### Patch Changes
+
+- baf3e12: batching a problem with sharp package dependency for vite-image-tools by removing image-tools-which not really needed in most cases
+
 ## 2.2.0
 
 ### Minor Changes
